@@ -25,7 +25,7 @@ public class SwingApp extends JFrame {
 
     public SwingApp() {
         setTitle("Administrador de empleados");
-        setSize(600, 230);
+        setSize(1200, 460);
         tablaEmpleado = new JTable();
         JScrollPane scrollPane = new JScrollPane(tablaEmpleado);
         add(scrollPane, BorderLayout.CENTER);
@@ -48,8 +48,9 @@ public class SwingApp extends JFrame {
         eliminarButton.setForeground(Color.WHITE);
 
         empleadoRepositorio = new EmpleadoRepositorio(); // Objeto creado para acceder a la base de datos
-
+       
         // agregar la accion de escuchar a los botones
+         refrescarEmpleado();
         agregarButton.addActionListener(e -> {
             try {
                 agregarEmpleado();
@@ -61,26 +62,29 @@ public class SwingApp extends JFrame {
         eliminarButton.addActionListener(e -> eliminarEmpleado());
     }
 
-    private Object eliminarEmpleado() {
-        String empleadoString = JOptionPanel.showInputDialog(this, "Ingrese el Id del empleado a eliminar","Elimina empleado", JOptionPane.QUESTION_MESSAGE);
-        if(empleadoString != null) {
+    private void eliminarEmpleado() {
+        String empleadoString = JOptionPane.showInputDialog(this, "Ingrese el Id del empleado a eliminar", "Elimina empleado", JOptionPane.QUESTION_MESSAGE);
+        if (empleadoString != null) {
             try {
                 int empleadoId = Integer.parseInt(empleadoString);
-                int confirmarEliminacion = JOptionPane.showConfirmDialog(this,"Seguro que desea eliminar el empleado","Confirma eliminación", JOptionPanel.YES_NO_OPTION){
+                int confirmarEliminacion = JOptionPane.showConfirmDialog(this, "Seguro que desea eliminar empleado?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+                if(confirmarEliminacion == JOptionPane.YES_OPTION) {
+                
                     empleadoRepositorio.eliminar(empleadoId);
                     refrescarEmpleado();
                 }
-            } catch (SQLException e) {
+            } 
+            catch (SQLException e) {
                 throw new RuntimeException(e);
+            } 
+            catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Ingrese un numero valido", "Error", JOptionPane.ERROR_MESSAGE);
+
             }
-            catch(NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Ingrese un numero valido", "Error",JOptionPane.);
-    
-        }
         }
     }
 
-    private Object actualizarEmpleado() {
+    private void actualizarEmpleado() {
 
         String empleadoIdString = JOptionPane.showInputDialog(this, "Ingrese el Id del empleado al actualizar", "Actualizar empleado", JOptionPane.QUESTION_MESSAGE);
         if (empleadoIdString != null) {
@@ -112,14 +116,17 @@ public class SwingApp extends JFrame {
                     }
 
                 }
-            }else{
+                else{
         JOptionPane.showMessageDialog(this, "No se encontro el empleado", "Error", JOptionPane.ERROR_MESSAGE);
-    }catch(NumberFormatException e){
+                }
+        }catch(NumberFormatException e){
         JOptionPane.showMessageDialog(this, "Ingrese un valor númerico válido", "Error", JOptionPane.ERROR_MESSAGE);
-    }catch(SQLException e){
+        }catch(SQLException e){
         JOptionPane.showMessageDialog(this, "Error al actualizar el empleado", "Error al cargar los datos", JOptionPane.ERROR_MESSAGE);
-    }
         }
+     }
+    }
+
 
     private void agregarEmpleado() throws SQLException {
         JTextField nombre = new JTextField();

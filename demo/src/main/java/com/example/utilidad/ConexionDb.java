@@ -9,7 +9,7 @@ public class ConexionDb {
     static int puerto = 3306;
     static String nombreBd = "tiendaE";
     
-public final static String URL="jdbc:mysql://localhost:"+puerto +"/"+nombreBd; 
+public final static String URL="jdbc:mysql://localhost:"+puerto+"/"+nombreBd; 
 
 private static String usuario="root";
 private static String pass="@Desafio2020";

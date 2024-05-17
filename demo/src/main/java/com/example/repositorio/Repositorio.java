@@ -9,7 +9,7 @@ public interface Repositorio<T> {
 
         T obternerPorId(int id) throws SQLException;
 
-        void guardar(T t) throws SQLException;
+        void guardar(T t);
 
         void eliminar(int id) throws SQLException;
 
