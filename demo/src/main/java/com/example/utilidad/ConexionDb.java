@@ -12,7 +12,7 @@ public class ConexionDb {
 public final static String URL="jdbc:mysql://localhost:"+puerto+"/"+nombreBd; 
 
 private static String usuario="root";
-private static String pass="@Desafio2020";
+private static String pass="";
 private static BasicDataSource pool;
 
 private static BasicDataSource obtenerPool() throws SQLException{
